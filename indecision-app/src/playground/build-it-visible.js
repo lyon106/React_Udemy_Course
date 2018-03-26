@@ -3,27 +3,35 @@ const app = {
     subtitle: 'Subtitle',
     options: []
 };
-let napis = "1";
-const onMakeDecision = () => {
-    if (app.options.length == 0) {
-        app.options.push(napis);
-        renderApp();
-    } else {
-        app.options = [];
-        renderApp();
+class VisibilityToggle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visibility: false 
+        };
+        this.handleToggleVisibility = this.handleToggleVisibility.bind(this);
+    }
+
+    handleToggleVisibility() {
+            this.setState((prevState) => {
+                return {
+                    visibility: !prevState.visibility 
+                };
+            });
+    };
+
+    render() {
+        return (
+            <div> 
+                <h1>{app.title}</h1>
+                {app.subtitle ? <p>{app.subtitle}</p> : undefined} 
+                <button onClick={this.handleToggleVisibility}>{this.state.visibility ? <p>Hide details</p> : <p>Show details</p>}</button>
+                {this.state.visibility ? <p>What should I do?</p> : undefined}
+            </div>
+        )
     }
 }
-const appRoot = document.getElementById('app');
-const renderApp = () => {
-    const template = (
-        <div>
-            <h1>{app.title}</h1>
-            {app.subtitle ? <p>{app.subtitle}</p> : undefined}
-            <button onClick={onMakeDecision}>{app.options.length == 0 ? <p>Hide details</p> : <p>Show details</p>}</button>
-            {app.options.length == 0 ? <p>What should I do?</p> : undefined}
-        </div>
-    );
 
-    ReactDOM.render(template, appRoot);
-}
-renderApp();
+
+const appRoot = document.getElementById('app');
+ReactDOM.render(<VisibilityToggle />, appRoot);

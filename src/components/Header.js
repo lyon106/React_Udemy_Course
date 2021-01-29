@@ -9,8 +9,8 @@ const Header = (props) => (
     </div>
 );
 Header.defaultProps = {
-    title: 'Tite', 
-    subtitle:'Subtitle'
+    title: 'Indecision App', 
+    subtitle:'Add few options from which you have to choose one, and let the app decide for you!'
 };
 
 export default Header; 
